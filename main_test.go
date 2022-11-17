@@ -33,6 +33,16 @@ func FuzzHTTPHandler(f *testing.F) {
 
 	// FUZZING
 	f.Fuzz(func(t *testing.T, input []byte) {
+		if !json.Valid(input) {
+			t.Skip("invalid JSON")
+		}
+
+		req := Request{}
+		err := json.Unmarshal(input, &req)
+		if err != nil {
+			t.Skip("only correct requests are intresting")
+		}
+
 		resp, err := http.DefaultClient.Post(srv.URL, "application/json", bytes.NewBuffer(input))
 		if err != nil {
 			t.Errorf("Error: %v", err)
