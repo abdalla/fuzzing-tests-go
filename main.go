@@ -28,10 +28,10 @@ func GetHighest(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//Producing error
-	if high == 75 {
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte("Something went wrong"))
-	}
+	// if high == 75 {
+	// 	w.WriteHeader(http.StatusInternalServerError)
+	// 	w.Write([]byte("Something went wrong"))
+	// }
 
 	fmt.Fprintf(w, "%d", high)
 }
